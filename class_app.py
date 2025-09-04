@@ -15,9 +15,12 @@ vectorizer = TfidfVectorizer(stop_words="english", max_features=5000)
 # Button
 if st.button("Check Sentiment"):
     if user_text:
-        user_text = vectorizer.fit_transform(user_text)
-        prediction = model.predict([user_text])[0]
-        st.write(f"**Prediction:** {prediction}")
+        if isinstance(user_text, str):
+            texts = [user_text]
+        
+        text_tfidf = vectorizer.transform(texts)
+        predictions = model.predict(text_tfidf)
+
+        st.write(f"**Prediction:** {predictions}")
     else:
         st.warning("Please enter some text.")
-
