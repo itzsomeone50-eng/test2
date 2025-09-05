@@ -12,15 +12,24 @@ st.title("📌 Sentiment Analyzer")
 # Text input
 user_text = st.text_input("Enter your text:")
 vectorizer = TfidfVectorizer(stop_words="english", max_features=5000)
+
+def predict_sentiment(texts, model, vectorizer):
+    """Predicts sentiment (0 or 1) for new input texts"""
+    if isinstance(texts, str):
+        texts = [texts]
+    
+    text_tfidf = vectorizer.transform(texts)
+    predictions = model.predict(text_tfidf)
+    
+    return dict(zip(texts, predictions))
 # Button
 if st.button("Check Sentiment"):
-    if user_text:
-        if isinstance(user_text, str):
-            texts = [user_text]
-        
-        text_tfidf = vectorizer.transform(texts)
-        predictions = model.predict(text_tfidf)
+        predictions = predict_sentiment("it was good movie", model, vectorizer)
+        res = {0:"Negative",1:"Positive"}
+        p = int(list(predictions.values())[0])
 
-        st.write(f"**Prediction:** {predictions}")
+        f_r = res[p]
+
+        st.write(f"**Prediction(Sentiment of the Given text):** {f_r}")
     else:
         st.warning("Please enter some text.")
