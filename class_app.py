@@ -18,7 +18,7 @@ def predict_sentiment(texts, model, vectorizer):
     if isinstance(texts, str):
         texts = [texts]
     
-    text_tfidf = vectorizer.transform(texts)
+    text_tfidf = vectorizer.fit_transform(texts)
     predictions = model.predict(text_tfidf)
     
     return dict(zip(texts, predictions))
@@ -33,3 +33,4 @@ if st.button("Check Sentiment"):
         st.write(f"**Prediction(Sentiment of the Given text):** {f_r}")
     else:
         st.warning("Please enter some text.")
+
