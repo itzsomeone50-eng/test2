@@ -24,13 +24,14 @@ def predict_sentiment(texts, model, vectorizer):
     return dict(zip(texts, predictions))
 # Button
 if st.button("Check Sentiment"):
-        predictions = predict_sentiment("it was good movie", model, vectorizer)
-        res = {0:"Negative",1:"Positive"}
-        p = int(list(predictions.values())[0])
+    predictions = predict_sentiment("it was good movie", model, vectorizer)
+    res = {0:"Negative",1:"Positive"}
+    p = int(list(predictions.values())[0])
 
-        f_r = res[p]
+    f_r = res[p]
 
-        st.write(f"**Prediction(Sentiment of the Given text):** {f_r}")
-    else:
-        st.warning("Please enter some text.")
+    st.write(f"**Prediction(Sentiment of the Given text):** {f_r}")
+else:
+    st.warning("Please enter some text.")
+
 
